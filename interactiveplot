@@ -1,0 +1,37 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Mon Dec 19 09:59:41 2022
+
+@author: sdd380
+"""
+
+import pandas as pd
+import matplotlib.pyplot as plt
+import requests
+from matplotlib.lines import Line2D
+pd.options.mode.chained_assignment = None  # default='warn'
+
+url = "https://raw.githubusercontent.com/SinaDavid/VAE/main/LatentFeatures.csv"
+df = pd.read_csv(url)
+df["color"]=pd.Series
+
+
+
+for x in range(len(df['label'])):
+    if df['label'][x]=='Stroke': df['color'][x]='red' 
+    elif df['label'][x]=='healthy control': df['color'][x]='blue'
+
+
+
+
+fig = plt.figure()
+ax1 = fig.add_subplot(111, projection='3d')
+ax1.scatter(df['xx'], df['yy'], df['zz'], c=df['color'],label=df['label'],edgecolors='white')
+
+ax1.set_xlabel('Latent feature 1')
+ax1.set_ylabel('Latent feature 2')
+ax1.set_zlabel('Latent feature 3')
+colors = ['red','blue']
+lines = [Line2D([0], [0], color=c, linewidth=3, linestyle='-') for c in colors]
+labels=['Stroke survivors', 'Healthy cohort']
+ax1.legend(lines, labels,loc='upper right')
